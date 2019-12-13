@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Intercorp Retail: Lista de clientes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>    
+	<p>Intercorp Retail</p>
+<table>
+	<tr>
+	    <th>Nombres</th><th>Apellidos</th><th>Edad</th><th>FecNacimiento</th><th>FecMuerte</th>
+	</tr>
+	<tr th:if="${listaClientes.empty}">
+        <td colspan="2"> No hay clientes registrados </td>
+    </tr>
+	<tr th:each="cliente : ${listaClientes}">
+    	<td th:text="${cliente.nombres()}">1</td>
+    	<td th:text="${cliente.apellidos()}">2</td>
+    	<td th:text="${cliente.edad()}">3</td>
+    	<td th:text="${cliente.fecNacimiento()}">4</td>
+    	<td th:text="${cliente.fecMuerte()}">5</td>
+	</tr>
+	
+</table>
+<table>
+	<tr>
+		<td><a href="http://localhost:8080/creaCliente">Creación de Clientes </a><td>
+	</tr>
+</table>		 	
+</body>
+</html>

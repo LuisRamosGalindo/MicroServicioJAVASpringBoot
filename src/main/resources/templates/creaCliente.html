@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Intercorp Retail: Creación de Cliente</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>    
+	<p>Intercorp Retail</p>
+<form action="/creaCliente">	
+<table>
+	<tr>
+	<th>Registro de clientes</th>
+	</tr>
+	<tr>
+    	<td>Nombres    : </td><td><input name="nombres" type="text"></input></td>
+	</tr>
+	<tr>
+    	<td>Apellidos  : </td><td><input name="apellidos" type="text"></input></td>
+	</tr>
+	<tr>
+    	<td>Edad       : </td><td><input name="edad" type="text"></input></td>
+	</tr>
+	<tr>
+    	<td>Fec.Nac    : </td><td><input name="fecNacimiento" type="date"></input></td>
+	</tr>
+	<tr>
+		<td><input type="hidden" name="accion"  value ="registrar"></td>
+	</tr>
+    <tr>
+    	<td><input type="submit" value="Registrar"></input>	</td>
+	</tr>
+</table>
+</form>	
+<table>
+	<tr><td><a href="http://localhost:8080/kpiClientes">kpi de clientes</a></td></tr>
+	<tr><td><a href="http://localhost:8080/listaClientes">lista de clientes</a></td></tr>
+</table>	 	
+</body>
+</html>

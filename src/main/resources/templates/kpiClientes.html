@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Intercorp Retail: KPI de clientes</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>    
+	<p>Intercorp Retail</p>
+<table>
+	<tr>
+	    <th >Promedio de Edad</th><th>Desviación Estandar</th>
+	</tr>
+	<tr>
+    	<td th:text = " ${kpiClientes.promEdad()}"></td>
+    	<td th:text = " ${kpiClientes.desvEstandar()}"></td>
+	</tr>
+	
+    	
+	
+</table>
+<table>
+	<tr>
+		<td><a href="http://localhost:8080/creaCliente">Creación de Clientes </a><td>
+	</tr>
+</table>		 	
+</body>
+</html>

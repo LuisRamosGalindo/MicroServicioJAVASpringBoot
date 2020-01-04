@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*; 
 import java.lang.Math;
+import java.net.InetAddress;
+import org.springframework.core.env.Environment;
+import java.net.UnknownHostException;
 import com.ibk.beans.*;
 
 @Controller
@@ -14,9 +17,11 @@ public class CreaClienteController {
 
 	List<Cliente> listaClientes = new ArrayList<Cliente>();
 	KpiClientes kpiClientes = new KpiClientes(0.0,0.0);
+	String urlHost       = "";
+	Environment environment;
 
 	@GetMapping("/creaCliente")
-	public String creaCliente(String nombres, String apellidos, Integer edad, String fecNacimiento, String accion, String mensaje, Model model) {
+	public String creaCliente(String nombres, String apellidos, Integer edad, String fecNacimiento, String accion, String mensaje, Model model) throws UnknownHostException  {
 
 		if (accion != null && accion.equals("registrar") ){
 			Cliente cliente = new Cliente(nombres,  apellidos,  edad,  fecNacimiento);
@@ -28,25 +33,31 @@ public class CreaClienteController {
 			System.out.println("Datos incompletos");	
 		}
 
+		urlHost = getUrlHost();
+		model.addAttribute("urlHost",urlHost);	
 		model.addAttribute("listaClientes", listaClientes);	
 		
 		return "creaCliente";
 	}
 
 
-	@GetMapping("/listaClientes")
-	public String listaClientes(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
+	@GetMapping("/listaClientes") 
+	public String listaClientes(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) throws UnknownHostException {
+		urlHost = getUrlHost();
+		model.addAttribute("urlHost",urlHost);	
+
 		model.addAttribute("listaClientes", listaClientes);
 		return "listaClientes";
 	}
 
-	@GetMapping("/kpiClientes")
-	public String kpiClientes(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
+	@GetMapping("/kpiClientes") 
+	public String kpiClientes(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) throws UnknownHostException {
 		
 		Double promEdad = 0.0; 
 		Double desvEstadar =0.0; 
 		Double sum =0.0; 
 		double totalClientes = 0.0;
+		
 
 		totalClientes = listaClientes.size(); 
 
@@ -69,9 +80,25 @@ public class CreaClienteController {
 
 		kpiClientes.setPromEdad(promEdad); 
 		kpiClientes.setDesvEstandar(desvEstadar); 
+		urlHost = getUrlHost();
+		model.addAttribute("urlHost",urlHost);	
 
 		model.addAttribute("kpiClientes", kpiClientes);
 		return "kpiClientes";
+	}
+
+	
+	private String getUrlHost() throws UnknownHostException{
+
+		String hostname = ""; 
+		
+		String  port      = ""; 
+
+		port =  "8080";//"environment.getProperty("local.server.port");
+		hostname = InetAddress.getLocalHost().getHostAddress();
+
+		System.out.println("host:port" + hostname+":"+port);
+		return hostname + ":" + port;
 	}
 
 }
